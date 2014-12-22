@@ -3,6 +3,7 @@ var router = express.Router();
 
 var bodyParser = require('body-parser');
 var urlencode = bodyParser.urlencoded({ extended: false });
+var request = require('request');
 
 
 var Bar     = require('../app/models/bar');
@@ -34,6 +35,19 @@ router.route('/')
     });
   });
 
+router.route('/fetch')
+  .get(function(req, res) {
+    var latLng = req.query.latLng
+    var radius = req.query.radius
+    var url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+
+              latLng + '&radius=' +
+              radius + '&types=bar&key=AIzaSyCCgn-b7ZEYd-U45DJpO6tXhtnkq3zWq2E'
+    request(url, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        res.json(body) // Print the google web page.
+      }
+    })
+  });
 
 router.route('/:bar_id')
   .delete(function(req, res) {
@@ -68,6 +82,8 @@ router.route('/:bar_id')
       res.json(bar);
     });
   });
+
+
 
 
 module.exports = router;

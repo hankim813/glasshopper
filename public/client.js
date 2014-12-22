@@ -1,5 +1,8 @@
 $(function(){
 
+
+
+
   // $.get('/bars')
   // $('.city-list').on('click', 'a[data-city]', function (event) {
   //   if(!confirm('Are you sure ?')){
