@@ -2,7 +2,7 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 var timestamps   = require('mongoose-timestamp');
 
-var BarSchema    = new Schema({
+var barSchema    = new Schema({
   name    : String,
   address : String,
   photoUrl: String,
@@ -26,6 +26,6 @@ var BarSchema    = new Schema({
 });
 
 // the timestamps module gives us createdAt and updateAt
-BarSchema.plugin(timestamps);
+barSchema.plugin(timestamps);
 
-module.exports = mongoose.model('Bar', BarSchema);
+module.exports = mongoose.model('Bar', barSchema);
