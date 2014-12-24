@@ -1,13 +1,17 @@
-var express = require('express');
-var router = express.Router();
+// setup express Router
+var router     = require('express').Router();
 
+// setup express bodyParser middleware
 var bodyParser = require('body-parser');
-var urlencode = bodyParser.urlencoded({ extended: false });
-var request = require('request');
+var urlencode  = bodyParser.urlencoded({ extended: false });
 
+// setup request module to issue http requests to third party apis
+var request    = require('request');
 
-var Bar     = require('../app/models/bar');
+// load the mongoose model
+var Bar        = require('../app/models/bar');
 
+// define routes
 router.route('/')
   .get(function(req, res){
     Bar.find(function(err, bars) {
@@ -59,12 +63,12 @@ router.route('/:bar_id')
     });
   })
 
-  .put(function(req, res) {
-    Bar.findById(req.params.bear_id, function(err, bar) {
+  .put(urlencode, function(req, res) {
+    Bar.findById(req.params.bar_id, function(err, bar) {
       if (err)
         res.send(err);
 
-      bar.name = req.body.name;  // update the bears info
+      bar.name = req.body.name;  // update the bar info
 
       bar.save(function(err) {
         if (err)
@@ -84,6 +88,5 @@ router.route('/:bar_id')
   });
 
 
-
-
+// expose routes to make them available when loading this file
 module.exports = router;
