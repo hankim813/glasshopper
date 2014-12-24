@@ -75,6 +75,11 @@
         }
       }
     },
+    "dotenv": {
+      "version": "0.4.0",
+      "from": "dotenv@*",
+      "resolved": "https://registry.npmjs.org/dotenv/-/dotenv-0.4.0.tgz"
+    },
     "express": {
       "version": "4.10.6",
       "from": "express@>=4.10.6 <5.0.0",
