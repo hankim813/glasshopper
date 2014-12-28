@@ -54,11 +54,35 @@ module.exports = function(passport) {
                     return done(null, newUser);
                 });
             }
-
         });
-
         });
 
     }));
+
+    passport.use('local-signin', new LocalStrategy({
+        usernameField : 'email',
+        passwordField : 'password',
+        passReqToCallback : true // allows us to pass back the entire request to the callback
+    },
+    function(req, email, password, done) {
+
+        User.findOne({ 'local.email' :  email }, function(err, user) {
+            // if there are any errors, return the error before anything else
+            if (err)
+                return done(err);
+
+            // if no user is found, return the message
+            if (!user)
+                return done(null, false, {message: "invalid email / password combination"});
+
+            // if the user is found but the password is wrong
+            if (!user.validPassword(password))
+                return done(null, false, {message: "invalid email / password combination"});
+
+            return done(null, user);
+        });
+
+    }));
+
 
 };
