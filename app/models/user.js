@@ -12,7 +12,7 @@ var userSchema   = new Schema({
   facebook         : {
       id           : String,
       token        : String,
-      email        : { type: String, unique: true },
+      email        : { type: String, index: {unique: true, sparse: true} },
       name         : String
   },
   profilePhotoUrl  : String,
