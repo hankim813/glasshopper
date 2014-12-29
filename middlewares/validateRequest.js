@@ -3,7 +3,7 @@ var User         = require('../app/models/user');
 
 module.exports = function(req, res, next) {
 
-  var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
+  var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['X-Access-Token'];
 
   if (token) {
     try {

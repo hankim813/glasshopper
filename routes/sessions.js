@@ -35,7 +35,6 @@ function localAuthCallBack (req, res, next) {
 }
 
 function genToken(user) {
-  console.log(user)
   var expires = expiresIn(180); // 180 days
   var token = jwt.encode({
     exp: expires, userId: user.id
