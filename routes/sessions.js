@@ -27,7 +27,7 @@ function localAuthCallBack (req, res, next) {
       if (err) {
         return next(err); // will generate a 500 error
       }
-      if (! user) {
+      if (!user) {
         return res.status(400).json(info);
       }
       return res.status(201).json(genToken(user));
