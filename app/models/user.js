@@ -12,6 +12,7 @@ var userSchema   = new Schema({
   facebook         : {
       id           : String,
       token        : String,
+      gender       : String,
       email        : { type: String, index: {unique: true, sparse: true} },
       name         : String
   },

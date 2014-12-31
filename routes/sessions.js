@@ -18,8 +18,43 @@ router.route('/signup')
 router.route('/signin')
   .post(urlencode, localAuthCallBack);
 
+router.route('/fbcallback')
+  .post(urlencode, fbAuthCallBack);
+
 
 // private methods
+function fbAuthCallBack (req, res, next) {
+  User.findOne({ 'local.email' :  req.body.facebook.email }, function(err, user) {
+
+    // TODO before updating / creating the user maybe check
+    // if they have a valid fb token?
+    if (user) {
+      user.facebook           = req.body.facebook;
+      user.profilePhotoUrl    = req.body.profilePhotoUrl;
+
+      user.save(function(err) {
+        if (err)
+            throw err;
+        return res.status(201).json(genToken(user));
+      });
+    } else {
+      var newUser             = new User();
+
+      newUser.facebook        = req.body.facebook;
+      newUser.name            = newUser.facebook.name;
+      newUser.local.email     = newUser.facebook.email;
+      newUser.profilePhotoUrl = req.body.profilePhotoUrl;
+
+      newUser.save(function(err) {
+        if (err)
+            throw err;
+        return res.status(201).json(genToken(newUser));
+      });
+    }
+  });
+}
+
+
 function localAuthCallBack (req, res, next) {
   // define signin or signup local strategy from request path
   var passportStrategy = 'local-' + req.path.slice(1);
