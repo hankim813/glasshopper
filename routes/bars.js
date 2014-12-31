@@ -53,10 +53,10 @@ router.route('/fetch')
     })
   });
 
-router.route('/:bar_id')
+router.route('/:barId')
   .delete(function(req, res) {
     Bar.remove({
-      _id: req.params.bar_id
+      _id: req.params.barId
     }, function(err, bar) {
       if(err) throw err;
       res.sendStatus(204);
@@ -64,7 +64,7 @@ router.route('/:bar_id')
   })
 
   .put(urlencode, function(req, res) {
-    Bar.findById(req.params.bar_id, function(err, bar) {
+    Bar.findById(req.params.barId, function(err, bar) {
       if (err)
         res.send(err);
 
@@ -80,7 +80,7 @@ router.route('/:bar_id')
   })
 
   .get(function(req, res) {
-    Bar.findById(req.params.bar_id, function(err, bar) {
+    Bar.findById(req.params.barId, function(err, bar) {
       if (err)
         res.send(err);
       res.json(bar);
