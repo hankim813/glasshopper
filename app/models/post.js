@@ -5,7 +5,8 @@ var timestamps   = require('mongoose-timestamp');
 var postSchema  = new Schema({
   _user         : { type: Schema.Types.ObjectId, ref: 'User'},
   _bar          : { type: Schema.Types.ObjectId, ref: 'Bar'},
-  content       : String
+  content       : String,
+  author      : String
 });
 
 // the timestamps module gives us createdAt and updateAt
