@@ -13,6 +13,7 @@ var Post        = require('../app/models/post');
 
 // define routes
 router.route('/')
+
   .post(urlencode, function(req, res){
 
     var post = new Post();
@@ -28,6 +29,16 @@ router.route('/')
       res.status(201).json(post);
   });
 });
+
+router.route('/:postId')
+
+  .get(function(req, res) {
+    Post.findById(req.params.postId, function(err, post) {
+      if (err)
+        res.send(err);
+      res.json(post);
+    })
+  })
 
 // expose routes to make them available when loading this file
 module.exports = router;
