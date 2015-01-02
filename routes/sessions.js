@@ -78,7 +78,9 @@ function genToken(user) {
   return {
     token: token,
     expires: expires,
-    user: {email: user.local.email, name: user.name}
+    user: {email: user.local.email,
+           name: user.name,
+           id: user.id}
   };
 }
 
