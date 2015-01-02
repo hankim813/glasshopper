@@ -11,6 +11,7 @@ var request    = require('request');
 // load the mongoose model
 var Bar        = require('../app/models/bar');
 
+
 // define routes
 router.route('/')
   .get(function(req, res){
@@ -41,16 +42,16 @@ router.route('/')
 
 router.route('/fetch')
   .get(function(req, res) {
-    var latLng = req.query.latLng
-    var radius = req.query.radius
+    var latLng = req.query.latLng;
+    var radius = req.query.radius;
     var url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+
               latLng + '&radius=' +
-              radius + '&types=bar&key=AIzaSyCCgn-b7ZEYd-U45DJpO6tXhtnkq3zWq2E'
+              radius + '&types=bar&key=AIzaSyCCgn-b7ZEYd-U45DJpO6tXhtnkq3zWq2E';
     request(url, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        res.json(body) // Print the google web page.
+        res.json(body); // Print the google web page.
       }
-    })
+    });
   });
 
 router.route('/:bar_id')
@@ -86,7 +87,6 @@ router.route('/:bar_id')
       res.json(bar);
     });
   });
-
 
 // expose routes to make them available when loading this file
 module.exports = router;
