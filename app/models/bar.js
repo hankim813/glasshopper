@@ -9,12 +9,12 @@ var barSchema    = new Schema({
   name          : String,
   address       : String,
   photoUrl      : String,
-  avgPrice      : { type: Number, min: 1, max: 5 },
-  location      : { type: [Number], index: '2dsphere'},
+  avgPrice      : { type: Number, min: 1, max: 5, index: true },
+  loc           : { type: [Number], index: '2dsphere'},
   google        : {
     place_id    : { type: String, index: true },
-    price_level : Number,
-    rating      : Number,
+    price_level : { type: Number, index: true },
+    rating      : { type: Number, index: true },
     reference   : String
   }
   // happyHour: same as opening_hours
@@ -36,6 +36,14 @@ var barSchema    = new Schema({
 
 
 // class methods ======================
+
+barSchema.statics.findNearbyQuery = function(lng, lat, milesRadius) {
+    return this.geoNear([lng,lat], {
+                         spherical : true,
+                         maxDistance : milesRadius/3959,
+                         distanceMultiplier: 3959 });
+    };
+
 
 barSchema.statics.fetchBarsFromGoogle = function(latLng, radius) {
   var Bar = this;
@@ -71,7 +79,7 @@ barSchema.statics.saveBar = function(googlePlace) {
 
 barSchema.methods.updateFieldsFromGooglePlace = function(googlePlace) {
   var location            = googlePlace.geometry.location;
-  this.location           = [location.lng, location.lat];
+  this.loc                = [location.lng, location.lat];
   this.name               = googlePlace.name;
   this.address            = googlePlace.vicinity;
   this.google.place_id    = googlePlace.place_id;
