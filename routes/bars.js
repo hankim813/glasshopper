@@ -39,24 +39,28 @@ router.route('/')
     });
   });
 
-router.route('/fetch')
+router.route('/nearby')
   .get(function(req, res) {
-    var latLng = req.query.latLng
-    var radius = req.query.radius
-    var url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='+
-              latLng + '&radius=' +
-              radius + '&types=bar&key=AIzaSyCCgn-b7ZEYd-U45DJpO6tXhtnkq3zWq2E'
-    request(url, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        res.json(body) // Print the google web page.
-      }
-    })
+    var radius = parseFloat(req.query.radius)
+    var adjustedMeterRadius = radius * 1601 * 0.85
+    var lng = parseFloat(req.query.lng)
+    var lat = parseFloat(req.query.lat)
+
+    Bar.fetchBarsFromGoogle(lat + ',' + lng, adjustedMeterRadius);
+
+    Bar.findNearbyQuery(lng, lat, radius)
+      .then(function (results, stats) {
+        res.status(200).json(results);
+      }).end(function(err) {
+        console.log(JSON.stringify(err));
+        res.status(500).json("something went wrong, please try again")
+      });
   });
 
-router.route('/:bar_id')
+router.route('/:barId')
   .delete(function(req, res) {
     Bar.remove({
-      _id: req.params.bar_id
+      _id: req.params.barId
     }, function(err, bar) {
       if(err) throw err;
       res.sendStatus(204);
@@ -64,7 +68,7 @@ router.route('/:bar_id')
   })
 
   .put(urlencode, function(req, res) {
-    Bar.findById(req.params.bar_id, function(err, bar) {
+    Bar.findById(req.params.barId, function(err, bar) {
       if (err)
         res.send(err);
 
@@ -80,7 +84,7 @@ router.route('/:bar_id')
   })
 
   .get(function(req, res) {
-    Bar.findById(req.params.bar_id, function(err, bar) {
+    Bar.findById(req.params.barId, function(err, bar) {
       if (err)
         res.send(err);
       res.json(bar);
