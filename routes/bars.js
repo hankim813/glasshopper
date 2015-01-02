@@ -46,11 +46,11 @@ router.route('/nearby')
     var lng = parseFloat(req.query.lng)
     var lat = parseFloat(req.query.lat)
 
-    Bar.fetchBarsFromGoogle(req.query.lat + ',' + req.query.lng, adjustedMeterRadius);
+    Bar.fetchBarsFromGoogle(lat + ',' + lng, adjustedMeterRadius);
 
     Bar.findNearbyQuery(lng, lat, radius)
-      .then(function (err, results, stats) {
-          res.status(200).json([err, results, stats]);
+      .then(function (results, stats) {
+        res.status(200).json(results);
       }).end(function(err) {
         console.log(JSON.stringify(err));
         res.status(500).json("something went wrong, please try again")
