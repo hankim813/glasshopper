@@ -41,6 +41,10 @@ app.use('/api/bars', bars);
 var posts 			 = require('./routes/posts');
 app.use('/api/posts', posts);
 
+// DOESN'T WORK YET
+// var photos			 = require('./routes/photos');
+// app.use('/api/photos', photos);
+
 // error handler if no route matches
 require('./config/error-handler')(app);
 
