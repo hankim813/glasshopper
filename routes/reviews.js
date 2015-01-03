@@ -11,15 +11,18 @@ var Review        = require('../app/models/review');
 // define routes
 router.route('/')
   .post(urlencode, function(req, res) {
-
-    var review = new Review(req.body.review);    // create a new instance of the Review model
+    var review = new Review(req.body);    // create a new instance of the Review model
 
     // save the bar and check for errors
     review.save(function(err) {
       if (err) {
         res.status(400).json(err);
       } else {
-        res.status(201).json(review);
+        // I must be missing something, it seems the class method
+        // doesn't return anything (see comments on the Review model)
+        // it works when console logging
+        var averages = Review.getReviewsAvg(review);
+        res.status(201).json(averages);
       }
     });
   });
