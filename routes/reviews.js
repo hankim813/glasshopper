@@ -15,22 +15,50 @@ router.route('/')
     console.log(JSON.stringify(req.body));
 
     var review = new Review({ _author: req.body.author,
-                              _bar: req.body.bar,
-                              crowdLevel: req.body.crowdLevel,
-                              noiseLevel: req.body.noiseLevel,
-                              avgAge: req.body.avgAge,
-                              ggRatio: req.body.ggRatio});    // create a new instance of the Review model
+      _bar: req.body.bar,
+      crowdLevel: req.body.crowdLevel,
+      noiseLevel: req.body.noiseLevel,
+      avgAge: req.body.avgAge,
+      ggRatio: req.body.ggRatio});    // create a new instance of the Review model
 
-    // save the bar and check for errors
-    review.save(function(err) {
-      if (err) {
-        res.status(400).json(err);
-      } else {
-        res.status(201).json(review);
-      }
-    });
+        // save the bar and check for errors
+      review.save(function(err) {
+        if (err) {
+          res.status(400).json(err);
+        } else {
+          res.status(201).json(review);
+        }
   });
+});
 
+router.route('/:barId')
+  .get(function(req, res) {
+    // Review.aggregate([
+    //   { $match: { _bar: req.params.barId} },
+    //   { $group: 
+    //     {
+    //       _id: "$_bar",
+    //       avgNoise: { $avg: "$noiseLevel"},
+    //       avgCrowd: { $avg: "$crowdLevel"},
+    //       avgAge:   { $avg: "$avgAge"},
+    //       avgRatio: { $avg: "$ggRatio"}
+    //     }}
+    //   ], function(err, aggregations) {
+    //     if (err)
+    //       res.send(err);
+    //     res.json(aggregations);
+    //   })
+
+    Review.find({_bar: req.params.barId}, function(err, reviews) {
+      if (err)
+        res.send(err);
+      res.json(reviews);
+    });
+
+
+      // var reviews = Review.find({_bar: req.params.barId});
+      // return res.status(200).json(reviews);
+  });
 // expose routes to make them available when loading this file
 module.exports = router;
 
