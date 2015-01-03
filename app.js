@@ -42,6 +42,9 @@ app.all('/api/*', [require('./middlewares/validateRequest')]);
 var bars         = require('./routes/bars');
 app.use('/api/bars', bars);
 
+var reviews         = require('./routes/reviews');
+app.use('/api/reviews', reviews);
+
 // error handler if no route matches
 require('./config/error-handler')(app);
 
