@@ -28,13 +28,11 @@
     "mongoose-timestamp": "^0.3.0",
     "morgan": "^1.5.0",
     "multer": "^0.1.6",
-    "node-fs": "^0.1.7",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
     "passport-http": "^0.2.2",
     "passport-local": "^1.0.0",
-    "request": "^2.51.0",
-    "s3-uploader": "^0.5.1"
+    "request": "^2.51.0"
   },
   "devDependencies": {
     "mocha": "^2.0.1",

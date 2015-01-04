@@ -12,7 +12,7 @@ var request    = require('request');
 var Post        = require('../app/models/post');
 
 // define routes
-router.route('/')
+router.route('/:barId/posts/')
 
   .post(urlencode, function(req, res){
 
@@ -27,10 +27,18 @@ router.route('/')
         res.send(err);
 
       res.status(201).json(post);
-  });
-});
+    })
+  })
 
-router.route('/:postId')
+  .get(function(req, res) {
+    Post.find({_bar: req.params.barId}, function(err, posts) {
+      if (err)
+        res.send(err);
+      res.json(posts);
+    });
+  });
+
+router.route('/:barId/posts/:postId')
 
   .get(function(req, res) {
     Post.findById(req.params.postId, function(err, post) {
@@ -38,17 +46,6 @@ router.route('/:postId')
         res.send(err);
       res.json(post);
     })
-  });
-
-
-router.route('/bars/:barId')
-  
-  .get(function(req, res) {
-    Post.find({_bar: req.params.barId}, function(err, posts) {
-      if (err)
-        res.send(err);
-      res.json(posts);
-    });
   });
 // expose routes to make them available when loading this file
 module.exports = router;

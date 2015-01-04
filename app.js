@@ -44,7 +44,10 @@ app.use('/api/bars', bars);
 
 
 var posts 			 = require('./routes/posts');
-app.use('/api/posts', posts);
+app.use('/api/bars', posts);
+
+var votes				 = require('./routes/votes');
+app.use('/api/votes', votes);
 
 // DOESN'T WORK YET
 // var photos			 = require('./routes/photos');
