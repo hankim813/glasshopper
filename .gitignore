@@ -1,3 +1,5 @@
 node_modules
 *swp
 *rdb
+.env
+glassHopper_db/

@@ -11,6 +11,7 @@ var request    = require('request');
 // load the mongoose model
 var Bar        = require('../app/models/bar');
 
+
 // define routes
 router.route('/')
   .get(function(req, res){
@@ -41,6 +42,7 @@ router.route('/')
 
 router.route('/nearby')
   .get(function(req, res) {
+
     var radius = parseFloat(req.query.radius)
     var adjustedMeterRadius = radius * 1601 * 0.85
     var lng = parseFloat(req.query.lng)
@@ -55,6 +57,7 @@ router.route('/nearby')
         console.log(JSON.stringify(err));
         res.status(500).json("something went wrong, please try again")
       });
+
   });
 
 router.route('/:barId')
@@ -90,7 +93,6 @@ router.route('/:barId')
       res.json(bar);
     });
   });
-
 
 // expose routes to make them available when loading this file
 module.exports = router;

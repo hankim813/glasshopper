@@ -42,8 +42,20 @@ app.all('/api/*', [require('./middlewares/validateRequest')]);
 var bars         = require('./routes/bars');
 app.use('/api/bars', bars);
 
-var reviews         = require('./routes/reviews');
+
+var posts 			 = require('./routes/posts');
+app.use('/api/bars', posts);
+
+var votes				 = require('./routes/votes');
+app.use('/api/votes', votes);
+
+// DOESN'T WORK YET
+// var photos			 = require('./routes/photos');
+// app.use('/api/photos', photos);
+
+var reviews      = require('./routes/reviews');
 app.use('/api/reviews', reviews);
+
 
 // error handler if no route matches
 require('./config/error-handler')(app);
