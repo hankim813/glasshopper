@@ -12,6 +12,7 @@ var Review        = require('../app/models/review');
 // define routes
 router.route('/')
   .post(urlencode, function(req, res) {
+
     console.log(JSON.stringify(req.body));
 
     var review = new Review({ _author: req.body.author,
@@ -19,15 +20,16 @@ router.route('/')
       crowdLevel: req.body.crowdLevel,
       noiseLevel: req.body.noiseLevel,
       avgAge: req.body.avgAge,
-      ggRatio: req.body.ggRatio});    // create a new instance of the Review model
+      ggRatio: req.body.ggRatio
+    });    // create a new instance of the Review model
 
         // save the bar and check for errors
-      review.save(function(err) {
-        if (err) {
-          res.status(400).json(err);
-        } else {
-          res.status(201).json(review);
-        }
+    review.save(function(err) {
+      if (err) {
+        res.status(400).json(err);
+      } else {
+        res.status(201).json(review);
+      }
   });
 });
 
