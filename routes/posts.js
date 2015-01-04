@@ -16,7 +16,6 @@ router.route('/')
 
   .post(urlencode, function(req, res){
 
-    console.log(JSON.stringify(req.body));
     var post = new Post();
     post.author = req.body.author;
     post.content = req.body.content;
@@ -39,7 +38,17 @@ router.route('/:postId')
         res.send(err);
       res.json(post);
     })
-  })
+  });
 
+
+router.route('/bars/:barId')
+  
+  .get(function(req, res) {
+    Post.find({_bar: req.params.barId}, function(err, posts) {
+      if (err)
+        res.send(err);
+      res.json(posts);
+    });
+  });
 // expose routes to make them available when loading this file
 module.exports = router;
