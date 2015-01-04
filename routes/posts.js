@@ -16,11 +16,12 @@ router.route('/')
 
   .post(urlencode, function(req, res){
 
+    console.log(JSON.stringify(req.body));
     var post = new Post();
     post.author = req.body.author;
     post.content = req.body.content;
-    // post._user = req.body.userId;
-    // post._bar = req.body.barId;
+    post._user = req.body.userId;
+    post._bar = req.body.barId;
 
     post.save(function(err) {
       if (err)
