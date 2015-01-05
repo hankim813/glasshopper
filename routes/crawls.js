@@ -34,11 +34,39 @@ router.route('/')
 
 router.route('/:crawlId')
 	.get(function(req, res) {
-		Crawl.findById(req.params.crawlId, function(err, crawl) {
+		Crawl.findOne({
+			$and: [
+				{_id: req.params.crawlId},
+				{open: true}
+			]}, function(err, crawl) {
 			if (err)
 				res.send(err);
 			res.json(crawl);
 		});
+	})
+
+	.put(urlencode, function(req, res) {
+		Crawl.findById(req.params.crawlId, function(err, crawl) {
+			if (err)
+				res.send(err);
+
+			crawl.open = false;
+			crawl.save(function(err) {
+				if (err) 
+					res.send(err);
+				res.json(crawl);
+			})
+		})
 	});
+
+router.route('/users/:userId')
+	.get(function(req, res) {
+		Crawl.find({_leader: req.params.userId}, function(err, crawls) {
+			if (err)
+				res.send(err);
+			console.log(crawls);
+			res.json(crawls);
+		})
+	})
 
 module.exports = router;
