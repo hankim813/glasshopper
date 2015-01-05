@@ -53,7 +53,7 @@ app.use('/api/votes', votes);
 // app.use('/api/photos', photos);
 
 var reviews      = require('./routes/reviews');
-app.use('/api/reviews', reviews);
+app.use('/api/bars', reviews);
 
 var checkins		 = require('./routes/checkins');
 app.use('/api/checkins', checkins);
