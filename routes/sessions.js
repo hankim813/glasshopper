@@ -80,7 +80,8 @@ function genToken(user) {
     expires: expires,
     user: {email: user.local.email,
            name: user.name,
-           id: user.id}
+           id: user.id,
+           searchRadius: user.searchRadius}
   };
 }
 
