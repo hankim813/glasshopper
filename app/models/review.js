@@ -2,8 +2,8 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var reviewSchema    = new Schema({
-  _author    : { type: Schema.Types.ObjectId, ref: 'User'},
-  _bar       : { type: Schema.Types.ObjectId, ref: 'Bar'},
+  _author    : { type: Schema.Types.ObjectId, ref: 'User', required: true},
+  _bar       : { type: Schema.Types.ObjectId, ref: 'Bar', required: true},
   crowdLevel : { type: Number, min: 1, max: 4, required: true },
   noiseLevel : { type: Number, min: 1, max: 4, required: true },
   avgAge     : { type: Number, min: 1, max: 4, required: true },
