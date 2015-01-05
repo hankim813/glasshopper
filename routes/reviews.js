@@ -39,7 +39,27 @@ router.route('/:barId')
         res.send(err);
       res.json(reviews);
     });
+  })
+
+  .put(urlencode, function(req, res) {
+    Review.findOne({ _bar: req.params.barId }, function(err, review) {
+      if (err) { res.send(err); }
+
+      review.crowdLevel = req.body.crowdLevel;
+      review.noiseLevel = req.body.noiseLevel;
+      review.avgAge     = req.body.avgAge;
+      review.ggRatio    = req.body.ggRatio;
+
+      review.save(function(err) {
+        if (err) {
+          res.status(400).json(err);
+        }else {
+          res.status(201).json(review);
+        }
+      });
+    });
   });
+
 // expose routes to make them available when loading this file
 module.exports = router;
 
