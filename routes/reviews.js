@@ -12,6 +12,7 @@ var Review        = require('../app/models/review');
 // define routes
 router.route('/')
   .post(urlencode, function(req, res) {
+
     console.log(JSON.stringify(req.body));
 
     // create a new instance of the Review model
@@ -55,7 +56,6 @@ router.route('/')
           });
         }
     });
-
   });
 
 router.route('/:barId')

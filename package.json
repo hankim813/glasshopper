@@ -26,6 +26,7 @@
     "mongoose": "^3.8.21",
     "mongoose-timestamp": "^0.3.0",
     "morgan": "^1.5.0",
+    "multer": "^0.1.6",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
     "passport-http": "^0.2.2",

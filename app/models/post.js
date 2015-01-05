@@ -5,8 +5,19 @@ var timestamps   = require('mongoose-timestamp');
 var postSchema  = new Schema({
   _user         : { type: Schema.Types.ObjectId, ref: 'User'},
   _bar          : { type: Schema.Types.ObjectId, ref: 'Bar'},
-  content       : String
+  content       : String,
+  author      	: String,
+  points					: { type: Number, default: 0}
 });
+
+postSchema.methods.upvote = function() {
+	this.points = (this.points + 1);
+};
+
+postSchema.methods.downvote = function() {
+	this.points = (this.points - 1);
+};
+
 
 // the timestamps module gives us createdAt and updateAt
 postSchema.plugin(timestamps);
