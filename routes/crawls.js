@@ -8,14 +8,27 @@ var Crawl    = require('../app/models/crawl');
 router.route('/')
 	
 	.post(urlencode, function(req, res) {
-		var crawl = new Crawl();
-		crawl._leader = req.body.userId;
+		Crawl.findOne({
+			$and:[ 
+				{_leader: req.body.userId},
+				{open: true}
+			]}, function(err, crawl) {
+			if (crawl) {
+				res.status(400).json({
+				  "status": 400,
+				  "message": "There is an open bar crawl open. Please close before creating a new one"
+				});
+			} else {
+				var crawl = new Crawl();
+				crawl._leader = req.body.userId;
 
-		crawl.save(function(err) {
-			if (err)
-				res.send(err);
+				crawl.save(function(err) {
+					if (err)
+						res.send(err);
 
-			res.status(201).json(crawl);
+					res.status(201).json(crawl);
+				});
+			}
 		});
 	});
 
