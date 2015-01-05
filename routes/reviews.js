@@ -9,9 +9,28 @@ var urlencode  = bodyParser.urlencoded({ extended: false });
 // load the mongoose model
 var Review        = require('../app/models/review');
 
-// define routes
-router.route('/')
-  .post(urlencode, function(req, res) {
+
+router.route('/:barId/reviews')
+  .get(function (req, res) {
+    Review.findOne({_bar: req.params.barId},
+      function (err, review) {
+        if (err)
+          return res.send("something went wrong");
+        if (review) {
+          Review.getReviewsAvg(review).then(
+            function (reviews) {
+              res.json(reviews);
+              },
+            function (error) {
+              return res.send("something went wrong");
+            });
+        } else {
+          res.json([]);
+        }
+      });
+  })
+
+  .post(urlencode, function (req, res) {
 
     // create a new instance of the Review model
     var review = new Review({ _author: req.body.author,
@@ -30,39 +49,10 @@ router.route('/')
     });
   });
 
-router.route('/:barId/averages')
-  .get(function (req, res) {
-    Review.findOne({_bar: req.params.barId},
-      function (err, review) {
-        if (err)
-          return res.send("something went wrong");
-        if (review) {
-          Review.getReviewsAvg(review).then(
-            function (reviews) {
-              res.json(reviews);
-              },
-            function (error) {
-              return res.send("something went wrong");
-            }
-          )
-        } else {
-          res.json([]);
-        }
-      }
-    )
-  })
 
-router.route('/:barId')
-  .get(function(req, res) {
-    Review.find({_bar: req.params.barId}, function(err, reviews) {
-      if (err)
-        res.send(err);
-      res.json(Review.getReviewsAvg(reviews));
-    });
-  })
-
-  .put(urlencode, function(req, res) {
-    Review.findOne({ _bar: req.params.barId }, function(err, review) {
+router.route('/:barId/reviews/:reviewId')
+  .put(urlencode, function (req, res) {
+    Review.findById(req.params.reviewId, function (err, review) {
       if (err) { res.send(err); }
 
       review.crowdLevel = req.body.crowdLevel;
@@ -80,5 +70,4 @@ router.route('/:barId')
     });
   });
 
-// expose routes to make them available when loading this file
 module.exports = router;
