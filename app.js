@@ -58,6 +58,9 @@ app.use('/api/reviews', reviews);
 var checkins		 = require('./routes/checkins');
 app.use('/api/checkins', checkins);
 
+var settings				 = require('./routes/settings');
+app.use('/api/users', settings);
+
 // error handler if no route matches
 require('./config/error-handler')(app);
 
