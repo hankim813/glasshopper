@@ -48,10 +48,6 @@ app.use('/api/bars', posts);
 var votes				 = require('./routes/votes');
 app.use('/api/votes', votes);
 
-// DOESN'T WORK YET
-// var photos			 = require('./routes/photos');
-// app.use('/api/photos', photos);
-
 var reviews      = require('./routes/reviews');
 app.use('/api/bars', reviews);
 
@@ -60,6 +56,9 @@ app.use('/api/checkins', checkins);
 
 var settings				 = require('./routes/settings');
 app.use('/api/users', settings);
+
+var crawls 			 = require('./routes/crawls');
+app.use('/api/crawls', crawls);
 
 // error handler if no route matches
 require('./config/error-handler')(app);
