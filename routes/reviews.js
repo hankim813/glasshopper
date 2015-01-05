@@ -37,7 +37,7 @@ router.route('/:barId')
     Review.find({_bar: req.params.barId}, function(err, reviews) {
       if (err)
         res.send(err);
-      res.json(reviews);
+      res.json(Review.getReviewsAvg(reviews));
     });
   })
 
