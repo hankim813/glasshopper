@@ -16,7 +16,7 @@ var userSchema   = new Schema({
       email        : { type: String, index: {unique: true, sparse: true} },
       name         : String
   },
-  searchRadius     : { type: Number, max: 20, default: 0.15 } //expressed in miles
+  searchRadius     : { type: Number, max: 20, default: 0.15 }, //expressed in miles
   profilePhotoUrl  : String,
   points           : Number
 });

@@ -56,6 +56,8 @@ app.use('/api/votes', votes);
 var reviews      = require('./routes/reviews');
 app.use('/api/reviews', reviews);
 
+var settings				 = require('./routes/settings');
+app.use('/api/users', settings);
 
 // error handler if no route matches
 require('./config/error-handler')(app);
