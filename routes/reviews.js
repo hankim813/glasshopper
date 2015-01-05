@@ -13,8 +13,6 @@ var Review        = require('../app/models/review');
 router.route('/')
   .post(urlencode, function(req, res) {
 
-    console.log(JSON.stringify(req.body));
-
     // create a new instance of the Review model
     var review = new Review({ _author: req.body.author,
                               _bar: req.body.bar,
@@ -31,6 +29,28 @@ router.route('/')
       }
     });
   });
+
+router.route('/:barId/averages')
+  .get(function (req, res) {
+    Review.findOne({_bar: req.params.barId},
+      function (err, review) {
+        if (err)
+          return res.send("something went wrong");
+        if (review) {
+          Review.getReviewsAvg(review).then(
+            function (reviews) {
+              res.json(reviews);
+              },
+            function (error) {
+              return res.send("something went wrong");
+            }
+          )
+        } else {
+          res.json([]);
+        }
+      }
+    )
+  })
 
 router.route('/:barId')
   .get(function(req, res) {
