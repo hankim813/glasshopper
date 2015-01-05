@@ -54,7 +54,6 @@ router.route('/nearby')
       .then(function (results, stats) {
         res.status(200).json(results);
       }).end(function(err) {
-        console.log(JSON.stringify(err));
         res.status(500).json("something went wrong, please try again")
       });
 
