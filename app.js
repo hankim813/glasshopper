@@ -42,7 +42,6 @@ app.all('/api/*', [require('./middlewares/validateRequest')]);
 var bars         = require('./routes/bars');
 app.use('/api/bars', bars);
 
-
 var posts 			 = require('./routes/posts');
 app.use('/api/bars', posts);
 
@@ -56,6 +55,8 @@ app.use('/api/votes', votes);
 var reviews      = require('./routes/reviews');
 app.use('/api/reviews', reviews);
 
+var checkins		 = require('./routes/checkins');
+app.use('/api/checkins', checkins);
 
 // error handler if no route matches
 require('./config/error-handler')(app);
