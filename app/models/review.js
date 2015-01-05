@@ -16,22 +16,20 @@ reviewSchema.post('save', function (review) {
 });
 
 reviewSchema.statics.getReviewsAvg = function(review) {
-  this.aggregate([
-      { $match: { _bar: review._bar } },
+  return this.aggregate([
+    { $match: { _bar: review._bar } },
       { $group: {
-          _id       : '$_bar',
-          avgAge    : { $avg: '$avgAge'},
-          crowdLevel: { $avg: '$crowdLevel'},
-          noiseLevel: { $avg: '$noiseLevel'},
-          ggRatio   : { $avg: '$ggRatio'},
+          _id       : "$_bar",
+          AvgAge    : { $avg: '$avgAge'},
+          CrowdLevel: { $avg: '$crowdLevel'},
+          NoiseLevel: { $avg: '$noiseLevel'},
+          GgRatio   : { $avg: '$ggRatio'},
+          reviewsCount: { $sum: 1 }
       }}
   ], function (err, results) {
       if (err) {
-        console.error(err);
+        return err;
       } else {
-        // I must be missing something, for some reason
-        // I was not able to get the return value.
-        console.log(results);
         return results;
       }
   });
