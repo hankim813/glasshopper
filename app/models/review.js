@@ -20,10 +20,10 @@ reviewSchema.statics.getReviewsAvg = function(review) {
     { $match: { _bar: review._bar } },
       { $group: {
           _id       : "$_bar",
-          AvgAge    : { $avg: '$avgAge'},
-          CrowdLevel: { $avg: '$crowdLevel'},
-          NoiseLevel: { $avg: '$noiseLevel'},
-          GgRatio   : { $avg: '$ggRatio'},
+          avgAge    : { $avg: '$avgAge'},
+          crowdLevel: { $avg: '$crowdLevel'},
+          noiseLevel: { $avg: '$noiseLevel'},
+          ggRatio   : { $avg: '$ggRatio'},
           reviewsCount: { $sum: 1 }
       }}
   ], function (err, results) {
