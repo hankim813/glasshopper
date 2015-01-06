@@ -2,8 +2,7 @@ var jwt          = require('jwt-simple');
 var User         = require('../app/models/user');
 
 module.exports = function(req, res, next) {
-  
-  var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'] || req.headers['authorization'].substr(6);
+  var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
 
   if (token) {
     try {
