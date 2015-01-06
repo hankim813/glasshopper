@@ -81,7 +81,8 @@ function genToken(user) {
     user: {email: user.local.email,
            name: user.name,
            id: user.id,
-           searchRadius: user.searchRadius}
+           searchRadius: user.searchRadius,
+           profilePhotoUrl: user.profilePhotoUrl}
   };
 }
 

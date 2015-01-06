@@ -17,7 +17,7 @@ var userSchema   = new Schema({
       name         : String
   },
   searchRadius     : { type: Number, max: 20, default: 2 }, 
-  profilePhotoUrl  : String,
+  profilePhotoUrl  : { type: String, default: 'img/profile.png' }, //points to dummy file on client
   points           : Number
 });
 
