@@ -24,7 +24,7 @@ router.route('/')
 
 				crawl.save(function(err) {
 					if (err)
-						res.send(err);
+						return res.send(err);
 
 					res.status(201).json(crawl);
 				});
@@ -40,7 +40,8 @@ router.route('/:crawlId')
 				{open: true}
 			]}, function(err, crawl) {
 			if (err)
-				res.send(err);
+				return res.send(err);
+
 			res.json(crawl);
 		});
 	})
@@ -48,14 +49,19 @@ router.route('/:crawlId')
 	.put(urlencode, function(req, res) {
 		Crawl.findById(req.params.crawlId, function(err, crawl) {
 			if (err)
-				res.send(err);
+				return res.send(err);
 
-			crawl.open = false;
-			crawl.save(function(err) {
-				if (err) 
-					res.send(err);
-				res.json(crawl);
-			})
+			if (crawl !== null) {
+				crawl.open = false;
+				crawl.save(function(err) {
+					if (err) 
+						return res.send(err);
+
+					res.json(crawl);
+				});
+			} else {
+				res.status(404).json("could not find the crawl");
+			}
 		})
 	});
 
@@ -67,7 +73,7 @@ router.route('/users/:userId')
 				{open: false}
 			]}, function(err, crawls) {
 			if (err)
-				res.send(err);
+				return res.send(err);
 			res.json(crawls);
 		})
 	})
