@@ -3,12 +3,13 @@ var Schema       = mongoose.Schema;
 var timestamps   = require('mongoose-timestamp');
 
 var postSchema  = new Schema({
-  _user         : { type: Schema.Types.ObjectId, ref: 'User'},
-  _bar          : { type: Schema.Types.ObjectId, ref: 'Bar'},
-  content       : String,
-  author      	: String,
+  _user         : { type: Schema.Types.ObjectId, ref: 'User', required: true},
+  _bar          : { type: Schema.Types.ObjectId, ref: 'Bar', required: true},
+  content       : { type: String, required: true},
+  author        : String,
   points					: { type: Number, default: 0}
 });
+
 
 postSchema.methods.upvote = function() {
 	this.points = (this.points + 1);
