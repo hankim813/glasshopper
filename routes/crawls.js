@@ -61,10 +61,13 @@ router.route('/:crawlId')
 
 router.route('/users/:userId')
 	.get(function(req, res) {
-		Crawl.find({_leader: req.params.userId}, function(err, crawls) {
+		Crawl.find({
+			$and: [
+				{_leader: req.params.userId},
+				{open: false}
+			]}, function(err, crawls) {
 			if (err)
 				res.send(err);
-			console.log(crawls);
 			res.json(crawls);
 		})
 	})
