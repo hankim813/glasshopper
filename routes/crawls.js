@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var urlencode  = bodyParser.urlencoded({ extended: false });
 
 var Crawl    = require('../app/models/crawl');
+var Checkin    = require('../app/models/checkin');
 
 router.route('/')
 	
@@ -42,7 +43,8 @@ router.route('/:crawlId')
 			if (err)
 				return res.send(err);
 
-			res.json(crawl);
+			crawls
+			res.json();
 		});
 	})
 
