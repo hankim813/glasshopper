@@ -20,7 +20,7 @@ router.route('/')
 				});
 			} else {
 				var crawl = new Crawl();
-				crawl._leader = req.body.userId;
+				crawl._leader = req.body.id;
 
 				crawl.save(function(err) {
 					if (err)
