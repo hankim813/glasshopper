@@ -20,8 +20,7 @@ router.route('/')
 				});
 			} else {
 				var crawl = new Crawl();
-				crawl._leader = req.body.id;
-
+				crawl._leader = req.body.data.userId;
 				crawl.save(function(err) {
 					if (err)
 						return res.send(err);
@@ -76,6 +75,27 @@ router.route('/users/:userId')
 				return res.send(err);
 			res.json(crawls);
 		})
-	})
+	});
+
+router.route('/:crawlId/checkins/:checkinId')
+	.put(urlencode, function(req, res) {
+		Crawl.findById(req.params.crawlId, function(err, crawl) {
+			if (err)
+				return res.send(err);
+
+				if (crawl !== null) {
+					crawl._checkins.push(req.params.checkinId);
+					crawl.save(function(err) {
+
+						if (err) 
+							return res.send(err);
+
+					res.json(crawl);
+				});
+			} else {
+				res.status(404).json("could not find the crawl");
+			}
+		});
+	});
 
 module.exports = router;
