@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var urlencode  = bodyParser.urlencoded({ extended: false });
 
 var Crawl    = require('../app/models/crawl');
-var Checkin    = require('../app/models/checkin');
+var Bar    = require('../app/models/bar');
 
 router.route('/')
 	
@@ -38,12 +38,15 @@ router.route('/:crawlId')
 			$and: [
 				{_id: req.params.crawlId},
 				{open: true}
-			]}, function(err, crawl) {
-			if (err)
-				return res.send(err);
+			]}).populate('_checkins').exec(function(err, crawl) {
+				if (err)
+					return res.send(err);
 
-			crawls
-			res.json();
+				Bar.populate(crawl,{
+					path: '_checkins._bar'
+				}, function(err, populatedCrawl) {
+					res.json(populatedCrawl);
+			});
 		});
 	})
 
