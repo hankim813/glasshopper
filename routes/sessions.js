@@ -44,7 +44,7 @@ function fbAuthCallBack (req, res, next) {
       newUser.name            = newUser.facebook.name;
       newUser.local.email     = newUser.facebook.email;
       newUser.profilePhotoUrl = req.body.profilePhotoUrl;
-
+      newUser.searchRadius    = 0.25;
       newUser.save(function(err) {
         if (err)
             throw err;
@@ -81,7 +81,7 @@ function genToken(user) {
     user: {email: user.local.email,
            name: user.name,
            id: user.id,
-           searchRadius: user.searchRadius,
+           searchRadius: user.searchRadius || 0.25,
            profilePhotoUrl: user.profilePhotoUrl}
   };
 }
