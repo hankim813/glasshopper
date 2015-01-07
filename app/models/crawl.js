@@ -4,9 +4,7 @@ var timestamps   = require('mongoose-timestamp');
 
 var crawlSchema  = new Schema({
   _leader        : { type: Schema.Types.ObjectId, ref: 'User'},
-  // _participants  : [{ type: Schema.Types.ObjectId, ref: 'User'}],
   _checkins      : [{ type: Schema.Types.ObjectId, ref: 'Checkin'}],
-  // _photos        : [{ type: Schema.Types.ObjectId, ref: 'Photo'}]
   open					 : { type: Boolean, default: true }
 });
 
