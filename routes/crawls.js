@@ -11,7 +11,7 @@ router.route('/')
 	.post(urlencode, function(req, res) {
 		Crawl.findOne({
 			$and:[ 
-				{_leader: req.body.userId},
+				{_leader: req.body.data.userId},
 				{open: true}
 			]}, function(err, crawl) {
 			if (crawl) {
@@ -22,6 +22,7 @@ router.route('/')
 			} else {
 				var crawl = new Crawl();
 				crawl._leader = req.body.data.userId;
+				crawl.name = req.body.data.name;
 				crawl.save(function(err) {
 					if (err)
 						return res.send(err);
