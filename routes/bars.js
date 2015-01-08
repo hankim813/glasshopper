@@ -44,18 +44,29 @@ router.route('/nearby')
   .get(function(req, res) {
 
     var radius = parseFloat(req.query.radius)
-    var adjustedMeterRadius = radius * 1601 * 0.85
     var lng = parseFloat(req.query.lng)
     var lat = parseFloat(req.query.lat)
-
-    Bar.fetchBarsFromGoogle(lat + ',' + lng, adjustedMeterRadius);
 
     Bar.findNearbyQuery(lng, lat, radius)
       .then(function (results, stats) {
         res.status(200).json(results);
       }).end(function(err) {
-        res.status(500).json("something went wrong, please try again")
+        console.log(err)
+        res.status(500).json("something went wrong, please try again" + err)
       });
+
+  });
+
+router.route('/googlefetch')
+  .get(function(req, res) {
+
+    var radius = parseFloat(req.query.radius)
+    var adjustedMeterRadius = radius * 1601 * 0.85
+    var lng = parseFloat(req.query.lng)
+    var lat = parseFloat(req.query.lat)
+
+    var resStatus = Bar.fetchBarsFromGoogle(lat + ',' + lng, adjustedMeterRadius);
+    res.status(200).json('OK');
 
   });
 
