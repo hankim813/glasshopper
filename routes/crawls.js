@@ -69,6 +69,24 @@ router.route('/:crawlId')
 		})
 	});
 
+router.route('/:crawlId/closed')
+	.get(function(req, res) {
+		Crawl.findOne({
+			$and: [
+				{_id: req.params.crawlId},
+				{open: false}
+			]}).populate('_checkins').exec(function(err, crawl) {
+				if (err)
+					return res.send(err);
+
+				Bar.populate(crawl,{
+					path: '_checkins._bar'
+				}, function(err, populatedCrawl) {
+					res.json(populatedCrawl);
+			});
+		});
+	});
+
 router.route('/users/:userId')
 	.get(function(req, res) {
 		Crawl.find({
