@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cities</title>
+  <script src="http://maps.google.com/maps/api/js?sensor=true&key=AIzaSyCCgn-b7ZEYd-U45DJpO6tXhtnkq3zWq2E"></script>
+  <script src="gmaps.js"></script>
+  <script src="jquery.js"></script>
+  <script src="client.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+
+  <div id="map"></div>
+  <script>
+    var loadBarsNearBy = function(e) {
+      console.log(e.latLng);
+      $.ajax({
+        url: 'bars/fetch?latLng='+
+              e.latLng.lat() + ',' +
+              e.latLng.lng() + '&radius=200',
+        type: 'GET',
+        dataType: 'json'
+      })
+      .done(function(data) {
+        console.log(data);
+      })
+      .fail(function() {
+        console.log("error");
+      })
+
+    };
+    var map = new GMaps({
+      el: '#map',
+      lat: -12.043333,
+      lng: -77.028333,
+      click: loadBarsNearBy,
+    });
+  </script>
+
+</body>
+</html>
