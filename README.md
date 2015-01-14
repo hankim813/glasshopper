@@ -21,3 +21,4 @@ run the server:
 $ bin/www
 ```
 
+View the GlassHopper client repo: [https://github.com/hankim813/glasshopper-client](https://github.com/hankim813/glasshopper-client)
