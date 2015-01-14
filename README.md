@@ -1,11 +1,23 @@
-Glasshopper
+GlassHopper
 ===========
 
-Bar crawl like a champion with this mobile application.
------------------
+Ever find yourself stuck at a boring empty bar? GlassHopper gives you a snapshot of the current state of bars around you via geolocation search. Get realtime data such as girl to guy ratio, number of people, noise level, and more!
 
-###### Glasshopper Manifesto:
-> “We will be comfortable with being uncomfortable. Dip into things we’ve never done before. Learn a lot of frameworks we’ve never tried. Learn a lot. Like learn a shit ton. Learn how to work on a team, be a developer, resolve conflicts, and experience this bitch from start to finish."
+###Dependencies
+- NodeJS: [http://nodejs.org/](http://nodejs.org/)
+- ExpressJS: [http://expressjs.com/starter/installing.html](http://expressjs.com/starter/installing.html)
+- MongoDB: [http://www.mongodb.org/downloads](http://www.mongodb.org/downloads)
+- Mongoose: [http://mongoosejs.com/docs/index.html](http://mongoosejs.com/docs/index.html)
 
 
+###Initial Installation
+```
+$ npm install
+```
+
+###Usage
+run the server:
+```
+$ bin/www
+```
 
